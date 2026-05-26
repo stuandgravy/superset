@@ -36,6 +36,12 @@ pyopenssl>=26.0.0,<27.0.0
 # Security: CVE-2026-25645 (MEDIUM) - Insecure Temporary File
 requests>=2.33.0,<3.0.0
 
+# Security: CVE-2026-44405 (MODERATE) - paramiko 3.5.1 SHA-1 algorithm allowed in rsakey.py
+# No upstream fix released yet. Reachable only via opt-in SSH tunnel feature.
+# Track: https://github.com/paramiko/paramiko/issues (search CVE-2026-44405)
+# Action: monitor — bump paramiko when a patched version is published.
+# Ref: https://github.com/stuandgravy/superset/issues/9
+
 # 5.0.0 has a sensitive deprecation used in other libs
 # -> https://github.com/aio-libs/async-timeout/blob/master/CHANGES.rst#500-2024-10-31
 async_timeout>=4.0.0,<5.0.0
