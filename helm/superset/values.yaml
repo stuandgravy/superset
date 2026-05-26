@@ -674,7 +674,8 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      # jwtSecret — REQUIRED: supply via --set supersetWebsockets.config.jwtSecret=<value>
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -759,7 +760,8 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    # password — REQUIRED: supply via --set init.adminUser.password=<value> or a Kubernetes secret
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:

@@ -17,6 +17,22 @@
 
 */}}
 
+⚠️  SECURITY CHECKLIST — review before exposing this installation:
+
+{{- if eq (default "" .Values.init.adminUser.password) "" }}
+  WARNING: No admin password has been set (init.adminUser.password is empty).
+           Set it via:  --set init.adminUser.password=<strong-password>
+{{- end }}
+
+{{- if eq (default "" (index .Values.supersetWebsockets.config "jwtSecret")) "" }}
+  WARNING: WebSocket JWT secret is empty (supersetWebsockets.config.jwtSecret).
+           Set it via:  --set supersetWebsockets.config.jwtSecret=<random-secret>
+           Generate with: openssl rand -base64 42
+{{- end }}
+
+  REMINDER: Ensure SUPERSET_SECRET_KEY is set in extraSecretEnv or via an
+            external secret. Generate with: openssl rand -base64 42
+
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
   {{- range .Values.ingress.hosts }}
