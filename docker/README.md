@@ -26,6 +26,23 @@ Docker is an easy way to get started with Superset.
 1. [Docker](https://www.docker.com/get-started)
 2. [Docker Compose](https://docs.docker.com/compose/install/)
 
+## Secret Key (Required)
+
+Before starting Superset you **must** provide a secret key used to sign session
+cookies and CSRF tokens. Generate one and export it in your shell:
+
+```bash
+export SUPERSET_SECRET_KEY=$(openssl rand -base64 42)
+```
+
+Alternatively, place it in a `docker/.env-local` file (git-ignored):
+
+```
+SUPERSET_SECRET_KEY=<your-generated-value>
+```
+
+Without this variable `docker compose up` will refuse to start.
+
 ## Configuration
 
 The `/app/pythonpath` folder is mounted from [`./docker/pythonpath_dev`](./pythonpath_dev)

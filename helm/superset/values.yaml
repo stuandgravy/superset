@@ -674,7 +674,7 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -759,7 +759,9 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    # SECURITY: You MUST override this value at install time.
+    # Use --set init.adminUser.password=<value> or provide via an existing K8s secret.
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:
