@@ -17,6 +17,21 @@
 
 */}}
 
+⚠️  SECURITY CHECKLIST — review before going to production:
+
+  • Set a strong admin password:
+      --set init.adminUser.password=<your-password>
+    The default is empty. Generate one if needed:
+      openssl rand -base64 42
+
+  • If WebSockets are enabled, set a JWT signing secret:
+      --set supersetWebsockets.config.jwtSecret=<your-secret>
+    Generate one with:
+      openssl rand -base64 42
+
+  • Set SUPERSET_SECRET_KEY in your secret env. This key signs session cookies
+    and CSRF tokens. Deploy with a known value at your own risk.
+
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
   {{- range .Values.ingress.hosts }}

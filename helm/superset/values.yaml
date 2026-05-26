@@ -674,7 +674,8 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      # -- Set via --set supersetWebsockets.config.jwtSecret=<value>. Generate with: openssl rand -base64 42
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -733,7 +734,8 @@ init:
   # Configure resources
   # Warning: fab command consumes a lot of ram and can
   # cause the process to be killed due to OOM if it exceeds limit
-  # Make sure you are giving a strong password for the admin user creation( else make sure you are changing after setup)
+  # -- Set a strong admin password via --set init.adminUser.password=<value> or via a Kubernetes secret.
+  # An empty default is provided to prevent deploying with a known-bad password.
   # Also change the admin email to your own custom email.
   resources: {}
     # limits:
@@ -759,7 +761,7 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:
