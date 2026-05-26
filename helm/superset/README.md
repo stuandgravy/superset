@@ -95,7 +95,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | init.adminUser.username | string | `"admin"` |  |
 | init.affinity | object | `{}` |  |
 | init.command | list | a `superset_init.sh` command | Command |
-| init.containerSecurityContext | object | `{}` |  |
+| init.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | init.createAdmin | bool | `true` |  |
 | init.enabled | bool | `true` |  |
 | init.extraContainers | list | `[]` | Launch additional containers into init job pod |
@@ -106,7 +106,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | init.loadExamples | bool | `false` |  |
 | init.podAnnotations | object | `{}` |  |
 | init.podLabels | object | `{}` |  |
-| init.podSecurityContext | object | `{}` |  |
+| init.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | init.priorityClassName | string | `nil` | Set priorityClassName for init job pods |
 | init.resources | object | `{}` |  |
 | init.tolerations | list | `[]` |  |
@@ -120,7 +120,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | priorityClassName | string | `nil` | Set priorityClassName for superset pods |
 | redis | object | see `values.yaml` | Configuration values for the Redis dependency. ref: https://github.com/bitnami/charts/blob/master/bitnami/redis More documentation can be found here: https://artifacthub.io/packages/helm/bitnami/redis |
 | resources | object | `{}` |  |
-| runAsUser | int | `0` | User ID directive. This user must have enough permissions to run the bootstrap script Running containers as root is not recommended in production. Change this to another UID - e.g. 1000 to be more secure |
+| runAsUser | int | `1000` | User ID directive. This user must have enough permissions to run the bootstrap script Running containers as root is not recommended in production. Change this to another UID - e.g. 1000 to be more secure |
 | secretEnv | object | `{"create":true}` | Specify rather or not helm should create the secret described in `secret-env.yaml` template |
 | secretEnv.create | bool | `true` | Change to false in order to support externally created secret (Binami "Sealed Secrets" for Kubernetes or External Secrets Operator) note: when externally creating the secret, the chart still expects to pull values from a secret with the name of the release defaults to `release-name-superset-env` - full logic located in _helpers.tpl file: `define "superset.fullname"` |
 | service.annotations | object | `{}` |  |
@@ -133,7 +133,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | serviceAccountName | string | `nil` | Specify service account name to be used |
 | supersetCeleryBeat.affinity | object | `{}` | Affinity to be added to supersetCeleryBeat deployment |
 | supersetCeleryBeat.command | list | a `celery beat` command | Command |
-| supersetCeleryBeat.containerSecurityContext | object | `{}` |  |
+| supersetCeleryBeat.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | supersetCeleryBeat.deploymentAnnotations | object | `{}` | Annotations to be added to supersetCeleryBeat deployment |
 | supersetCeleryBeat.enabled | bool | `false` | This is only required if you intend to use alerts and reports |
 | supersetCeleryBeat.extraContainers | list | `[]` | Launch additional containers into supersetCeleryBeat pods |
@@ -145,13 +145,13 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetCeleryBeat.podDisruptionBudget.maxUnavailable | int | `1` | If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetCeleryBeat.podDisruptionBudget.minAvailable | int | `1` | If set, maxUnavailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetCeleryBeat.podLabels | object | `{}` | Labels to be added to supersetCeleryBeat pods |
-| supersetCeleryBeat.podSecurityContext | object | `{}` |  |
+| supersetCeleryBeat.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | supersetCeleryBeat.priorityClassName | string | `nil` | Set priorityClassName for CeleryBeat pods |
 | supersetCeleryBeat.resources | object | `{}` | Resource settings for the CeleryBeat pods - these settings overwrite might existing values from the global resources object defined above. |
 | supersetCeleryBeat.topologySpreadConstraints | list | `[]` | TopologySpreadConstrains to be added to supersetCeleryBeat deployments |
 | supersetCeleryFlower.affinity | object | `{}` | Affinity to be added to supersetCeleryFlower deployment |
 | supersetCeleryFlower.command | list | a `celery flower` command | Command |
-| supersetCeleryFlower.containerSecurityContext | object | `{}` |  |
+| supersetCeleryFlower.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | supersetCeleryFlower.deploymentAnnotations | object | `{}` | Annotations to be added to supersetCeleryFlower deployment |
 | supersetCeleryFlower.enabled | bool | `false` | Enables a Celery flower deployment (management UI to monitor celery jobs) WARNING: on superset 1.x, this requires a Superset image that has `flower<1.0.0` installed (which is NOT the case of the default images) flower>=1.0.0 requires Celery 5+ which Superset 1.5 does not support |
 | supersetCeleryFlower.extraContainers | list | `[]` | Launch additional containers into supersetCeleryFlower pods |
@@ -169,7 +169,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetCeleryFlower.podDisruptionBudget.maxUnavailable | int | `1` | If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetCeleryFlower.podDisruptionBudget.minAvailable | int | `1` | If set, maxUnavailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetCeleryFlower.podLabels | object | `{}` | Labels to be added to supersetCeleryFlower pods |
-| supersetCeleryFlower.podSecurityContext | object | `{}` |  |
+| supersetCeleryFlower.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | supersetCeleryFlower.priorityClassName | string | `nil` | Set priorityClassName for supersetCeleryFlower pods |
 | supersetCeleryFlower.readinessProbe.failureThreshold | int | `3` |  |
 | supersetCeleryFlower.readinessProbe.httpGet.path | string | `"/api/workers"` |  |
@@ -212,7 +212,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetNode.connections.redis_ssl.enabled | bool | `false` |  |
 | supersetNode.connections.redis_ssl.ssl_cert_reqs | string | `"CERT_NONE"` |  |
 | supersetNode.connections.redis_user | string | `""` |  |
-| supersetNode.containerSecurityContext | object | `{}` |  |
+| supersetNode.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | supersetNode.deploymentAnnotations | object | `{}` | Annotations to be added to supersetNode deployment |
 | supersetNode.deploymentLabels | object | `{}` | Labels to be added to supersetNode deployment |
 | supersetNode.env | object | `{}` |  |
@@ -232,7 +232,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetNode.podDisruptionBudget.maxUnavailable | int | `1` | If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetNode.podDisruptionBudget.minAvailable | int | `1` | If set, maxUnavailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetNode.podLabels | object | `{}` | Labels to be added to supersetNode pods |
-| supersetNode.podSecurityContext | object | `{}` |  |
+| supersetNode.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | supersetNode.readinessProbe.failureThreshold | int | `3` |  |
 | supersetNode.readinessProbe.httpGet.path | string | `"/health"` |  |
 | supersetNode.readinessProbe.httpGet.port | string | `"http"` |  |
@@ -255,7 +255,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetWebsockets.affinity | object | `{}` | Affinity to be added to supersetWebsockets deployment |
 | supersetWebsockets.command | list | `[]` |  |
 | supersetWebsockets.config | object | see `values.yaml` | The config.json to pass to the server, see https://github.com/apache/superset/tree/master/superset-websocket Note that the configuration can also read from environment variables (which will have priority), see https://github.com/apache/superset/blob/master/superset-websocket/src/config.ts for a list of supported variables |
-| supersetWebsockets.containerSecurityContext | object | `{}` |  |
+| supersetWebsockets.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | supersetWebsockets.deploymentAnnotations | object | `{}` |  |
 | supersetWebsockets.enabled | bool | `false` | This is only required if you intend to use `GLOBAL_ASYNC_QUERIES` in `ws` mode see https://superset.apache.org/docs/contributing/misc#async-chart-queries |
 | supersetWebsockets.extraContainers | list | `[]` | Launch additional containers into supersetWebsockets pods |
@@ -277,7 +277,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetWebsockets.podDisruptionBudget.maxUnavailable | int | `1` | If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetWebsockets.podDisruptionBudget.minAvailable | int | `1` | If set, maxUnavailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetWebsockets.podLabels | object | `{}` |  |
-| supersetWebsockets.podSecurityContext | object | `{}` |  |
+| supersetWebsockets.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | supersetWebsockets.priorityClassName | string | `nil` | Set priorityClassName for supersetWebsockets pods |
 | supersetWebsockets.readinessProbe.failureThreshold | int | `3` |  |
 | supersetWebsockets.readinessProbe.httpGet.path | string | `"/health"` |  |
@@ -308,7 +308,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetWorker.autoscaling.minReplicas | int | `1` |  |
 | supersetWorker.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | supersetWorker.command | list | a `celery worker` command | Worker startup command |
-| supersetWorker.containerSecurityContext | object | `{}` |  |
+| supersetWorker.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
 | supersetWorker.deploymentAnnotations | object | `{}` | Annotations to be added to supersetWorker deployment |
 | supersetWorker.deploymentLabels | object | `{}` | Labels to be added to supersetWorker deployment |
 | supersetWorker.extraContainers | list | `[]` | Launch additional containers into supersetWorker pod |
@@ -326,7 +326,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetWorker.podDisruptionBudget.maxUnavailable | int | `1` | If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetWorker.podDisruptionBudget.minAvailable | int | `1` | If set, maxUnavailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget |
 | supersetWorker.podLabels | object | `{}` | Labels to be added to supersetWorker pods |
-| supersetWorker.podSecurityContext | object | `{}` |  |
+| supersetWorker.podSecurityContext.runAsNonRoot | bool | `true` |  |
 | supersetWorker.priorityClassName | string | `nil` | Set priorityClassName for supersetWorker pods |
 | supersetWorker.readinessProbe | object | `{}` | No startup/readiness probes by default since we don't really care about its startup time (it doesn't serve traffic) |
 | supersetWorker.replicas.enabled | bool | `true` |  |
