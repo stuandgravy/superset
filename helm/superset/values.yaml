@@ -294,7 +294,7 @@ supersetNode:
     db_host: "{{ .Release.Name }}-postgresql"
     db_port: "5432"
     db_user: superset
-    db_pass: superset
+    db_pass: ""
     db_name: superset
   env: {}
   # -- If true, forces deployment to reload on each upgrade
@@ -674,7 +674,7 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -733,7 +733,7 @@ init:
   # Configure resources
   # Warning: fab command consumes a lot of ram and can
   # cause the process to be killed due to OOM if it exceeds limit
-  # Make sure you are giving a strong password for the admin user creation( else make sure you are changing after setup)
+  # IMPORTANT: Set a strong password for the admin user at deployment time.
   # Also change the admin email to your own custom email.
   resources: {}
     # limits:
@@ -759,7 +759,7 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:
@@ -839,7 +839,7 @@ postgresql:
     ## PostgreSQL name for a custom user to create
     username: superset
     ## PostgreSQL password for the custom user to create. Ignored if `auth.existingSecret` with key `password` is provided
-    password: superset
+    password: ""
     ## PostgreSQL name for a custom database to create
     database: superset
 
@@ -895,7 +895,7 @@ redis:
     ## Name of the key containing the secret.
     existingSecretKey: ""
     ## Redis password
-    password: superset
+    password: ""
   ##
   ## Master configuration
   ##

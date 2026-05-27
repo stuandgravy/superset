@@ -91,7 +91,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | init.adminUser.email | string | `"admin@superset.com"` |  |
 | init.adminUser.firstname | string | `"Superset"` |  |
 | init.adminUser.lastname | string | `"Admin"` |  |
-| init.adminUser.password | string | `"admin"` |  |
+| init.adminUser.password | string | `""` |  |
 | init.adminUser.username | string | `"admin"` |  |
 | init.affinity | object | `{}` |  |
 | init.command | list | a `superset_init.sh` command | Command |
@@ -201,7 +201,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | supersetNode.command | list | See `values.yaml` | Startup command |
 | supersetNode.connections.db_host | string | `"{{ .Release.Name }}-postgresql"` |  |
 | supersetNode.connections.db_name | string | `"superset"` |  |
-| supersetNode.connections.db_pass | string | `"superset"` |  |
+| supersetNode.connections.db_pass | string | `""` |  |
 | supersetNode.connections.db_port | string | `"5432"` |  |
 | supersetNode.connections.db_type | string | `"postgresql"` | Database type for Superset metadata (Supported types: "postgresql", "mysql") |
 | supersetNode.connections.db_user | string | `"superset"` |  |
