@@ -450,6 +450,7 @@ authorized_licenses = [
     "apache license 2.0",
     "apache software",
     "apache software, bsd",
+    "apache-2.0",
     "bsd",
     "bsd-2-clause",
     "bsd-3-clause",
