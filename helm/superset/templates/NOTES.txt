@@ -17,6 +17,19 @@
 
 */}}
 
+⚠️  SECURITY REMINDER:
+{{- if .Values.init.createAdmin }}
+{{- if not .Values.init.adminUser.password }}
+  - You MUST provide an admin password: --set init.adminUser.password=<strong-password>
+{{- end }}
+{{- end }}
+{{- if .Values.supersetWebsockets.enabled }}
+{{- if not .Values.supersetWebsockets.config.jwtSecret }}
+  - You MUST provide a JWT secret for websockets: --set supersetWebsockets.config.jwtSecret=<secret>
+{{- end }}
+{{- end }}
+  - Generate secrets with: openssl rand -base64 42
+
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
   {{- range .Values.ingress.hosts }}
