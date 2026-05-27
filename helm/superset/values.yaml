@@ -674,7 +674,7 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -759,7 +759,8 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    # REQUIRED: Set a strong password before deploying. Do not use a default value.
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:
