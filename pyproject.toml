@@ -472,6 +472,8 @@ authorized_licenses = [
 # Seems ok, might need legal review
 # https://github.com/urschrei/pypolyline/blob/master/LICENSE.md
 polyline = "2"
+# pyarrow 23+ reports license as SPDX "Apache-2.0" which liccheck doesn't match
+pyarrow = ">=23"
 # --------------------------------------------------------------
 
 # TODO REMOVE THESE DEPS FROM CODEBASE
