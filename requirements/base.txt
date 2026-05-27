@@ -274,6 +274,9 @@ packaging==25.0
     #   shillelagh
 pandas==2.1.4
     # via apache-superset (pyproject.toml)
+# SECURITY: paramiko 3.5.1 is affected by CVE-2026-44405 (SHA-1 allowed in
+# rsakey.py). No upstream fix is available yet. Upgrade when a patched
+# release is published. See: https://github.com/stuandgravy/superset/issues/56
 paramiko==3.5.1
     # via
     #   apache-superset (pyproject.toml)
