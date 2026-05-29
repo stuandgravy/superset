@@ -61,7 +61,7 @@ services:
     image: *superset-image
     container_name: superset_app
     command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
-    user: "root"
+    user: "superset"
     restart: unless-stopped
     ports:
       - 8088:8088
@@ -84,7 +84,7 @@ services:
         condition: service_started
       redis:
         condition: service_started
-    user: "root"
+    user: "superset"
     volumes: *superset-volumes
     healthcheck:
       disable: true
@@ -102,7 +102,7 @@ services:
     depends_on:
       superset-init:
         condition: service_completed_successfully
-    user: "root"
+    user: "superset"
     volumes: *superset-volumes
     healthcheck:
       test:
@@ -124,7 +124,7 @@ services:
     depends_on:
       superset-init:
         condition: service_completed_successfully
-    user: "root"
+    user: "superset"
     volumes: *superset-volumes
     healthcheck:
       disable: true
