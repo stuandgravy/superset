@@ -91,7 +91,7 @@ On helm this can be set on `extraSecretEnv.SUPERSET_SECRET_KEY` or `configOverri
 | init.adminUser.email | string | `"admin@superset.com"` |  |
 | init.adminUser.firstname | string | `"Superset"` |  |
 | init.adminUser.lastname | string | `"Admin"` |  |
-| init.adminUser.password | string | `"admin"` |  |
+| init.adminUser.password | string | `""` |  |
 | init.adminUser.username | string | `"admin"` |  |
 | init.affinity | object | `{}` |  |
 | init.command | list | a `superset_init.sh` command | Command |

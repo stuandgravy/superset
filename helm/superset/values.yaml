@@ -674,7 +674,7 @@ supersetWebsockets:
           "ssl": false,
         },
       "redisStreamPrefix": "async-events-",
-      "jwtSecret": "CHANGE-ME",
+      "jwtSecret": "",
       "jwtCookieName": "async-token",
     }
   service:
@@ -759,7 +759,8 @@ init:
     firstname: Superset
     lastname: Admin
     email: admin@superset.com
-    password: admin
+    # REQUIRED: override with a strong password at deployment time
+    password: ""
   # -- List of initContainers
   # @default -- a container waiting for postgres
   initContainers:
@@ -839,7 +840,8 @@ postgresql:
     ## PostgreSQL name for a custom user to create
     username: superset
     ## PostgreSQL password for the custom user to create. Ignored if `auth.existingSecret` with key `password` is provided
-    password: superset
+    # REQUIRED: override with a strong password at deployment time
+    password: ""
     ## PostgreSQL name for a custom database to create
     database: superset
 
@@ -895,7 +897,8 @@ redis:
     ## Name of the key containing the secret.
     existingSecretKey: ""
     ## Redis password
-    password: superset
+    # REQUIRED: override with a strong password at deployment time (if auth is enabled)
+    password: ""
   ##
   ## Master configuration
   ##
